@@ -1,0 +1,12 @@
+services:
+  redis_for_test:
+    image: redis:8.2.1
+    restart: always
+    ports:
+      - "16379:6379"
+#    volumes:
+#      - redis_data:/data
+    command: ["redis-server"]
+
+#volumes:
+#  redis_data:
