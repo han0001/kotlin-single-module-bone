@@ -39,10 +39,15 @@ dependencies {
     implementation("io.github.oshai:kotlin-logging-jvm:5.1.1")
 
     // DB (개발/테스트용)
-    runtimeOnly("com.h2database:h2")
+    runtimeOnly("com.mysql:mysql-connector-j")
 
     // Redis
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
+    // Monitoring
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("io.micrometer:micrometer-registry-prometheus")
+
 
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test")

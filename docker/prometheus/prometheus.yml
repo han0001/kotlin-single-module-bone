@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: "kotlin-single-module-bone"
+    metrics_path: "/actuator/prometheus"
+    static_configs:
+      # 프로메테우스는 도커 컨테이너 실행, 앱은 로컬 실행이기 때문에 host.docker.internal로 로컬 주소 세팅 필요
+      - targets: ["host.docker.internal:9016"]
