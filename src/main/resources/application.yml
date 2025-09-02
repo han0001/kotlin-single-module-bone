@@ -1,24 +1,7 @@
-server:
-  port: 9016
-
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/appdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=utf8
-    username: appuser
-    password: apppass
-  jpa:
-    hibernate:
-      ddl-auto: update  # create, create-drop
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-#    prometheus:
-#      enabled: true
+  profiles:
+    active: dev
+    group:
+      dev: low-level-logging, console-logging
+      test: low-level-logging, console-logging, file-logging
+      prod: high-level-logging, console-logging, file-logging

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
+<configuration scan="true" scanPeriod="3 seconds">
+    <!-- active profile -->
+    <springProperty name="profile" source="spring.profiles.active"/>
+
+    <!-- conversion rule -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+    <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
+
+    <property name="pattern" value="|%clr(%5p)[%clr(%d{HH:mm:ss}){faint}][%clr(%-6.6mdc{reqId:-reqId}){cyan}]%logger{0}[%clr(%method:%line){cyan}]:%m%n%wex"/>
+    <property name="directory" value="/Users/aaa/nas/kotlin-single-module-bone"/>
+    <property name="file" value="kotlin-single-module-bone-${profile}"/>
+
+    <!-- console appender -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- file appender -->
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${directory}/${file}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${directory}/%d{yyyyMMdd}/${file}_%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFileNamingAndTriggeringPolicy">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <root>
+        <!-- console logging module -->
+        <springProfile name="console-logging">
+            <appender-ref ref="console"/>
+        </springProfile>
+
+        <!-- file logging module -->
+        <springProfile name="file-logging">
+            <appender-ref ref="file"/>
+        </springProfile>
+    </root>
+
+    <springProfile name="high-level-logging">
+        <logger name="root" level="info"/>
+        <logger name="org.springframework" level="info"/>
+        <logger name="org.springframework.security" level="error"/>
+        <logger name="org.springframework.web" level="warn"/>
+        <logger name="com.hyosungfms.cp.common.logger" level="info"/>
+    </springProfile>
+
+    <springProfile name="low-level-logging">
+        <logger name="root" level="info"/>
+        <logger name="org.springframework" level="info"/>
+        <logger name="org.springframework.security" level="info"/>
+        <logger name="com.hyosungfms.cp.common.logger" level="debug"/>
+    </springProfile>
+
+</configuration>

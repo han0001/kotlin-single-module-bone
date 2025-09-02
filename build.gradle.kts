@@ -38,6 +38,9 @@ dependencies {
     // log
     implementation("io.github.oshai:kotlin-logging-jvm:5.1.1")
 
+    // DB log
+    implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.2")
+
     // DB (개발/테스트용)
     runtimeOnly("com.mysql:mysql-connector-j")
 

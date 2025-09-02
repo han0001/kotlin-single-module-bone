@@ -1,0 +1,27 @@
+server:
+  port: 9016
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/appdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=utf8
+    username: appuser
+    password: apppass
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update  # create, create-drop
+      # logging p6spy로 대체
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#    prometheus:
+#      enabled: true

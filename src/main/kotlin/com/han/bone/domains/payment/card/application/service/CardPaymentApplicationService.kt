@@ -6,6 +6,7 @@ import com.han.bone.domains.payment.card.application.dto.command.CardPaymentCrea
 import com.han.bone.domains.payment.card.application.port.`in`.CardPaymentUseCase
 import com.han.bone.domains.payment.card.application.port.out.CardPaymentPort
 import com.han.bone.domains.payment.card.domain.CardPayment
+import com.han.bone.util.logging.log
 import org.springframework.stereotype.Service
 
 @Service
@@ -19,6 +20,7 @@ class CardPaymentApplicationService(
     }
 
     override fun create(command: CardPaymentCreateCommand): CardPaymentCreateResponse {
+        log.info { "Create card payment application" }
         val cardPayment = cardPaymentPort.findByOrderId(command.orderId)?.let {
             throw IllegalArgumentException("Duplicate orderId=${command.orderId}")
         }

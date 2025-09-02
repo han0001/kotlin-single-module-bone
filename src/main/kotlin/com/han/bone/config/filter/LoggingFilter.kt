@@ -16,8 +16,19 @@ import kotlin.time.measureTime
 
 class LoggingFilter : OncePerRequestFilter() {
 
+    /**
+     * 로깅을 적용하지 않을 요청을 지정
+     * true를 반환하면 해당 요청은 doFilterInternal()이 실행되지 않음
+     */
+    override fun shouldNotFilter(request: HttpServletRequest): Boolean {
+        val uri = request.requestURI
+        return uri.startsWith("/actuator/prometheus") ||
+                uri.startsWith("/actuator/health") ||
+                uri.startsWith("/actuator/metrics")
+    }
+
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
-        MDC.put("requestId", UUID.randomUUID().toString().replace("-", "").substring(0, 8))
+        MDC.put("reqId", UUID.randomUUID().toString().replace("-", "").substring(0, 8))
         val cachingRequest = CachingRequestWrapper(request)
         val cachingResponse = ContentCachingResponseWrapper(response)
 
@@ -36,7 +47,7 @@ class LoggingFilter : OncePerRequestFilter() {
             }
         } finally {
             cachingResponse.copyBodyToResponse()
-            MDC.remove("requestId")
+            MDC.remove("reqId")
         }
     }
 
