@@ -28,7 +28,7 @@ class ExceptionHandler {
     fun handleBadRequest(ex: IllegalArgumentException): ApiResponse<Nothing> {
 
         return ApiResponse.failure(
-            message = ex.message ?: "Resource not found",
+            message = ex.message ?: "Bad Request",
             status = BAD_REQUEST.value()
         )
     }

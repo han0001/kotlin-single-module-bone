@@ -24,8 +24,6 @@ class CardPaymentRestController(
         @PathVariable customerId: String,
         @PathVariable orderId: String,
     ): ApiResponse<CardPaymentResponse> {
-        throw NoSuchElementException("Card payment not found")
-
         val response = cardPaymentUseCase.findByOrderId(orderId)
         return ApiResponse.success(response)
     }
