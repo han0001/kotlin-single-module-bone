@@ -13,6 +13,7 @@ class DockerComposeExtension : BeforeSpecListener, AfterSpecListener {
 
     private val container = DockerComposeContainer<Nothing>(File("src/test/resources/docker-compose.yml")).apply {
         waitingFor("redis_for_test", ShellStrategy().withCommand("redis-cli get test"))
+        withLocalCompose(true)
     }
 
     override suspend fun beforeSpec(spec: Spec) {

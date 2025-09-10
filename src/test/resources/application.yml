@@ -1,4 +1,13 @@
 spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/appdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=utf8
+    username: appuser
+    password: apppass
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update  # create, create-drop
   data:
     redis:
       host: localhost
