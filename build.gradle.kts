@@ -98,5 +98,8 @@ sonarqube {
         property("sonar.junit.reportPaths", "build/test-results/test")
         property("sonar.java.coveragePlugin", "jacoco")
         property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
+
+        property("sonar.inclusions", "src/main/kotlin/com/han/bone/domains/payment/card/**")
+        property("sonar.test.exclusions", "src/test/**")
     }
 }
